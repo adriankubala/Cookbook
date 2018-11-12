@@ -1,0 +1,57 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <property name="text_field" value="text" dbms="postgresql"/>
+    <property name="text_field" value="varchar(1000)" dbms="hsqldb"/>
+
+    <changeSet id="Create dishes table" author="Adrian Kubała">
+        <createSequence sequenceName="dishes_seq" startValue="1" incrementBy="50"/>
+        <createTable tableName="dishes">
+            <column name="id" type="bigint" defaultValueSequenceNext="dishes_seq">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(254)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recipe" type="${text_field}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="Create ingredients table" author="Adrian Kubała">
+        <createSequence sequenceName="ingredients_seq" startValue="1" incrementBy="50"/>
+        <createTable tableName="ingredients">
+            <column name="id" type="bigint" defaultValueSequenceNext="ingredients_seq">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(254)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="Create dishes_ingredients table" author="Adrian Kubała">
+        <createTable tableName="dishes_ingredients">
+            <column name="dish_id" type="bigint">
+                <constraints primaryKey="true"
+                             referencedTableName="dishes"
+                             foreignKeyName="fk_dishes_ingredients_dishes"
+                             referencedColumnNames="id"
+                             nullable="false"/>
+            </column>
+            <column name="ingredient_id" type="bigint">
+                <constraints primaryKey="true"
+                             referencedTableName="ingredients"
+                             foreignKeyName="fk_dishes_ingredients_ingredients"
+                             referencedColumnNames="id"
+                             nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

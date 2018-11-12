@@ -1,0 +1,114 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="Insert data for development" author="Adrian Kubała">
+        <insert tableName="dishes">
+            <column name="name" value="Jajecznica"/>
+            <column name="recipe" value="Pokrój wędlinę, cebulę i wrzuć na patelnię z rozgrzanym masłem. Podsmaż,
+             a następnie wrzuć rozbełtane jajka. Pomieszaj chwilę. Smacznego"/>
+        </insert>
+        <insert tableName="dishes">
+            <column name="name" value="Kanapka"/>
+            <column name="recipe" value="Przekrój pieczywo. Posmaruj masłem. Połóż wędlinę i ser. Udekoruj ketchupem."/>
+        </insert>
+        <insert tableName="dishes">
+            <column name="name" value="Zakalec"/>
+            <column name="recipe" value="Wszystko razem zmiksować, na końcu dodać bakalie, wymieszać. Wylać na blachę
+             i piec około 1 godziny w temperaturze 200 stopni. Po upieczeniu i wystudzeniu ciasta zrobić polewę.
+             Wszystkie składniki rozpuścić w rondelku, nie gotować. Gorącą polewą polać ciasto. Dla efektu można posypać
+             kokosem."/>
+        </insert>
+
+        <insert tableName="ingredients">
+            <column name="name" value="Jajka"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="Wędlina"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="Cebula"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="Masło"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="Ser"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="Ketchup"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="Cukier"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="Mąka"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="Śmietana"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="Pieczywo"/>
+        </insert>
+
+        <insert tableName="dishes_ingredients">
+            <column name="dish_id" value="1"/>
+            <column name="ingredient_id" value="1"/>
+        </insert>
+        <insert tableName="dishes_ingredients">
+            <column name="dish_id" value="1"/>
+            <column name="ingredient_id" value="51"/>
+        </insert>
+        <insert tableName="dishes_ingredients">
+            <column name="dish_id" value="1"/>
+            <column name="ingredient_id" value="101"/>
+        </insert>
+        <insert tableName="dishes_ingredients">
+            <column name="dish_id" value="1"/>
+            <column name="ingredient_id" value="151"/>
+        </insert>
+        <insert tableName="dishes_ingredients">
+            <column name="dish_id" value="51"/>
+            <column name="ingredient_id" value="51"/>
+        </insert>
+        <insert tableName="dishes_ingredients">
+            <column name="dish_id" value="51"/>
+            <column name="ingredient_id" value="151"/>
+        </insert>
+        <insert tableName="dishes_ingredients">
+            <column name="dish_id" value="51"/>
+            <column name="ingredient_id" value="201"/>
+        </insert>
+        <insert tableName="dishes_ingredients">
+            <column name="dish_id" value="51"/>
+            <column name="ingredient_id" value="251"/>
+        </insert>
+        <insert tableName="dishes_ingredients">
+            <column name="dish_id" value="51"/>
+            <column name="ingredient_id" value="451"/>
+        </insert>
+        <insert tableName="dishes_ingredients">
+            <column name="dish_id" value="101"/>
+            <column name="ingredient_id" value="1"/>
+        </insert>
+        <insert tableName="dishes_ingredients">
+            <column name="dish_id" value="101"/>
+            <column name="ingredient_id" value="151"/>
+        </insert>
+        <insert tableName="dishes_ingredients">
+            <column name="dish_id" value="101"/>
+            <column name="ingredient_id" value="301"/>
+        </insert>
+        <insert tableName="dishes_ingredients">
+            <column name="dish_id" value="101"/>
+            <column name="ingredient_id" value="351"/>
+        </insert>
+        <insert tableName="dishes_ingredients">
+            <column name="dish_id" value="101"/>
+            <column name="ingredient_id" value="401"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
