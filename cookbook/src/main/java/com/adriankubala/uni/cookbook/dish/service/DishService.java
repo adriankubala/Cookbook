@@ -7,4 +7,6 @@ import java.util.List;
 public interface DishService {
 
 	List<DishDto> getAllDishes();
+
+	DishDto getDish(Long dishId);
 }

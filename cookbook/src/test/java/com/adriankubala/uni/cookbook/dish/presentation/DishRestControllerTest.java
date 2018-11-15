@@ -11,7 +11,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.hamcrest.Matchers.hasSize;
+import static com.adriankubala.uni.cookbook.dish.DishFixtures.*;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -35,6 +36,21 @@ class DishRestControllerTest {
 	void getAllDishes() throws Exception {
 		mockMvc.perform(get("/dishes"))
 			.andExpect(status().isOk())
-			.andExpect(jsonPath("$", hasSize(3)));
+			.andExpect(jsonPath("$", hasSize(EXISTING_DISHES_SIZE)));
+	}
+
+	@Test
+	void getDish() throws Exception {
+		mockMvc.perform(get("/dishes/" + EXISTING_DISH_ID))
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$", notNullValue()))
+			.andExpect(jsonPath("$.id", is(EXISTING_DISH_ID.intValue())))
+			.andExpect(jsonPath("$.ingredients", hasSize(EXISTING_DISH_INGREDIENTS_SIZE)));
+	}
+
+	@Test
+	void getNonExistingDish() throws Exception {
+		mockMvc.perform(get("/dishes/" + NON_EXISTING_DISH_ID))
+			.andExpect(status().isNotFound());
 	}
 }

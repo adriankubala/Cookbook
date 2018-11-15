@@ -1,7 +1,7 @@
 package com.adriankubala.uni.cookbook.dish.service;
 
 import com.adriankubala.uni.cookbook.dish.model.DishDto;
-import com.adriankubala.uni.cookbook.dish.service.DishService;
+import com.adriankubala.uni.cookbook.exception.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,22 +11,36 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static com.adriankubala.uni.cookbook.dish.DishFixtures.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @Transactional
-public class DishServiceTest {
+class DishServiceTest {
 
 	@Autowired
 	private DishService dishService;
 
 	@Test
-	public void getAllDishes() {
+	void getAllDishes() {
 		List<DishDto> dtos = dishService.getAllDishes();
 
 		assertNotNull(dtos);
-		assertEquals(3, dtos.size());
+		assertEquals(EXISTING_DISHES_SIZE, dtos.size());
+	}
+
+	@Test
+	void getDish() {
+		DishDto dto = dishService.getDish(EXISTING_DISH_ID);
+
+		assertNotNull(dto);
+		assertEquals(EXISTING_DISH_ID, dto.getId());
+		assertEquals(EXISTING_DISH_INGREDIENTS_SIZE, dto.getIngredients().size());
+	}
+
+	@Test
+	void getNonExistingDish() {
+		assertThrows(EntityNotFoundException.class, () -> dishService.getDish(NON_EXISTING_DISH_ID));
 	}
 }
