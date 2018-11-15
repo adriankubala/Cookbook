@@ -22,6 +22,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 class DishRestControllerTest {
 
+	private static final String BASE_URL = "/dishes/";
+
 	@Autowired
 	private WebApplicationContext webAppContext;
 
@@ -34,14 +36,14 @@ class DishRestControllerTest {
 
 	@Test
 	void getAllDishes() throws Exception {
-		mockMvc.perform(get("/dishes"))
+		mockMvc.perform(get(BASE_URL))
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$", hasSize(EXISTING_DISHES_SIZE)));
 	}
 
 	@Test
 	void getDish() throws Exception {
-		mockMvc.perform(get("/dishes/" + EXISTING_DISH_ID))
+		mockMvc.perform(get(BASE_URL + EXISTING_DISH_ID))
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$", notNullValue()))
 			.andExpect(jsonPath("$.id", is(EXISTING_DISH_ID.intValue())))
@@ -50,7 +52,7 @@ class DishRestControllerTest {
 
 	@Test
 	void getNonExistingDish() throws Exception {
-		mockMvc.perform(get("/dishes/" + NON_EXISTING_DISH_ID))
+		mockMvc.perform(get(BASE_URL + NON_EXISTING_DISH_ID))
 			.andExpect(status().isNotFound());
 	}
 }
