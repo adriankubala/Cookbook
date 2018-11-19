@@ -3,6 +3,7 @@
 ## Endpoints
 - GET /dishes
 - GET /dishes/{dishId}
+- GET /ingredients
 
 ## Deployment to Heroku
 1. Clone repository.
