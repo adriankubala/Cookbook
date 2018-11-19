@@ -19,7 +19,7 @@ public class Dish {
 	private Long id;
 
 	private String name;
-
+	private String picture;
 	private String recipe;
 
 	@ManyToMany
@@ -46,6 +46,14 @@ public class Dish {
 		this.name = name;
 	}
 
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
 	public String getRecipe() {
 		return recipe;
 	}
@@ -62,18 +70,20 @@ public class Dish {
 		this.ingredients = ingredients;
 	}
 
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Dish dish = (Dish) o;
 		return Objects.equals(name, dish.name) &&
+			Objects.equals(picture, dish.picture) &&
 			Objects.equals(recipe, dish.recipe) &&
 			Objects.equals(ingredients, dish.ingredients);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, recipe, ingredients);
+		return Objects.hash(name, picture, recipe, ingredients);
 	}
 }

@@ -4,8 +4,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <property name="text_field" value="text" dbms="postgresql"/>
-    <property name="text_field" value="varchar(1000)" dbms="hsqldb"/>
+    <property name="text" value="text" dbms="postgresql"/>
+    <property name="text" value="varchar(100000)" dbms="hsqldb"/>
 
     <changeSet id="Create dishes table" author="Adrian Kubała">
         <createSequence sequenceName="dishes_seq" startValue="1" incrementBy="50"/>
@@ -16,7 +16,10 @@
             <column name="name" type="varchar(254)">
                 <constraints nullable="false"/>
             </column>
-            <column name="recipe" type="${text_field}">
+            <column name="picture" type="${text}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recipe" type="${text}">
                 <constraints nullable="false"/>
             </column>
         </createTable>
