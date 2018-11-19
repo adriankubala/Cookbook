@@ -9,12 +9,14 @@ public class DishDto {
 
 	private Long id;
 	private String name;
+	private String picture;
 	private String recipe;
 	private List<IngredientDto> ingredients;
 
-	public DishDto(Long id, String name, String recipe, List<IngredientDto> ingredients) {
+	public DishDto(Long id, String name, String picture, String recipe, List<IngredientDto> ingredients) {
 		this.id = id;
 		this.name = name;
+		this.picture = picture;
 		this.recipe = recipe;
 		this.ingredients = ingredients;
 	}
@@ -33,6 +35,14 @@ public class DishDto {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
 	}
 
 	public String getRecipe() {
@@ -58,12 +68,13 @@ public class DishDto {
 		DishDto dishDto = (DishDto) o;
 		return Objects.equals(id, dishDto.id) &&
 			Objects.equals(name, dishDto.name) &&
+			Objects.equals(picture, dishDto.picture) &&
 			Objects.equals(recipe, dishDto.recipe) &&
 			Objects.equals(ingredients, dishDto.ingredients);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, recipe, ingredients);
+		return Objects.hash(id, name, picture, recipe, ingredients);
 	}
 }

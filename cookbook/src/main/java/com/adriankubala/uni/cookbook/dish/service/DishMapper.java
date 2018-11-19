@@ -19,7 +19,7 @@ final class DishMapper {
 	}
 
 	static DishDto toDishDto(Dish entity) {
-		return new DishDto(entity.getId(), entity.getName(), entity.getRecipe(), mapIngredientsToDtos(entity));
+		return new DishDto(entity.getId(), entity.getName(), entity.getPicture(), entity.getRecipe(), mapIngredientsToDtos(entity));
 	}
 
 	private static List<IngredientDto> mapIngredientsToDtos(Dish entity) {
