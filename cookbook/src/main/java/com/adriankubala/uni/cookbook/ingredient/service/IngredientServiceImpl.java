@@ -30,15 +30,13 @@ class IngredientServiceImpl implements IngredientService {
 	public IngredientDto addIngredient(IngredientNameDto ingredientNameDto) {
 		checkIfIngredientNameIsNotNull(ingredientNameDto);
 		String trimmedName = trimIngredientName(ingredientNameDto);
-		checkIfIngredientNameIsNotBlank(trimmedName);
-		checkIfIngredientNameIsAlphabeticOnly(trimmedName);
-		checkIfIngredientExistsByName(trimmedName);
-		return IngredientMapper.toIngredientDto(ingredientRepository.save(new Ingredient(trimmedName)));
+		validateIngredientName(trimmedName);
+		return IngredientMapper.toIngredientDto(saveIngredient(trimmedName));
 	}
 
 	private void checkIfIngredientNameIsNotNull(IngredientNameDto ingredientNameDto) {
 		if (ingredientNameDto.getName() == null) {
-			throw new EntityValidationException();
+			throw new EntityValidationException("Ingredient name may not be null.");
 		}
 	}
 
@@ -46,15 +44,21 @@ class IngredientServiceImpl implements IngredientService {
 		return ingredientNameDto.getName().trim();
 	}
 
+	private void validateIngredientName(String name) {
+		checkIfIngredientNameIsNotBlank(name);
+		checkIfIngredientNameIsAlphabeticOnly(name);
+		checkIfIngredientDoesNotExistByName(name);
+	}
+
 	private void checkIfIngredientNameIsNotBlank(String name) {
 		if (name.isEmpty()) {
-			throw new EntityValidationException();
+			throw new EntityValidationException("Ingredient name may not be blank.");
 		}
 	}
 
 	private void checkIfIngredientNameIsAlphabeticOnly(String name) {
 		if (allCharsAreAlphabetic(name)) {
-			throw new EntityValidationException();
+			throw new EntityValidationException("Ingredient may contain only alphabetic characters.");
 		}
 	}
 
@@ -62,9 +66,13 @@ class IngredientServiceImpl implements IngredientService {
 		return !name.chars().allMatch(Character::isLetter);
 	}
 
-	private void checkIfIngredientExistsByName(String name) {
+	private void checkIfIngredientDoesNotExistByName(String name) {
 		if (ingredientRepository.existsByName(name)) {
-			throw new EntityAlreadyExistsException();
+			throw new EntityAlreadyExistsException("Ingredient with this name already exists.");
 		}
+	}
+
+	private Ingredient saveIngredient(String name) {
+		return ingredientRepository.save(new Ingredient(name));
 	}
 }

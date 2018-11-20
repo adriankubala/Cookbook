@@ -42,7 +42,7 @@ class IngredientServiceTest {
 
 	@Test
 	void addIngredientWithWhitespaces() {
-		IngredientDto dto = ingredientService.addIngredient(new IngredientNameDto(" " + NON_EXISTING_INGREDIENT_NAME + " "));
+		IngredientDto dto = ingredientService.addIngredient(new IngredientNameDto(INGREDIENT_NAME_WITH_WHITESPACES));
 
 		assertNotNull(dto);
 		assertEquals(NON_EXISTING_INGREDIENT_NAME, dto.getName());
@@ -50,7 +50,7 @@ class IngredientServiceTest {
 
 	@Test
 	void addIngredientWithNullName() {
-		assertThrows(EntityValidationException.class, () -> ingredientService.addIngredient(new IngredientNameDto(null)));
+		assertThrows(EntityValidationException.class, () -> ingredientService.addIngredient(new IngredientNameDto()));
 	}
 
 	@Test
@@ -64,7 +64,7 @@ class IngredientServiceTest {
 	}
 
 	@Test
-	void addIngredientWithNonAlphabeticCharacters() {
-		assertThrows(EntityValidationException.class, () -> ingredientService.addIngredient(new IngredientNameDto(NON_EXISTING_INGREDIENT_NAME + "!")));
+	void addIngredientWithNonAlphabeticChars() {
+		assertThrows(EntityValidationException.class, () -> ingredientService.addIngredient(new IngredientNameDto(INGREDIENT_NAME_WITH_NON_ALPHABETIC_CHAR)));
 	}
 }

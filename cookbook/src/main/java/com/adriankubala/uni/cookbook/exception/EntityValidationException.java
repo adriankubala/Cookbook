@@ -1,5 +1,9 @@
 package com.adriankubala.uni.cookbook.exception;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
 public class EntityValidationException extends CookbookException {
 
 	public EntityValidationException() {

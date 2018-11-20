@@ -6,6 +6,9 @@ public class IngredientNameDto {
 
 	private String name;
 
+	public IngredientNameDto() {
+	}
+
 	public IngredientNameDto(String name) {
 		this.name = name;
 	}
