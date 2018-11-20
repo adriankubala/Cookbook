@@ -4,6 +4,12 @@
 - GET /dishes
 - GET /dishes/{dishId}
 - GET /ingredients
+- POST /ingredients - e.g.:
+```
+{
+    "name":"butter"
+}
+```
 
 ## Deployment to Heroku
 1. Clone repository.
