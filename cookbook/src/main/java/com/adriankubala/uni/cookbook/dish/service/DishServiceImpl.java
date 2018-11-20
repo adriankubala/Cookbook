@@ -25,6 +25,6 @@ class DishServiceImpl implements DishService {
 	public DishDto getDish(Long dishId) {
 		return dishRepository.findById(dishId)
 			.map(DishMapper::toDishDto)
-			.orElseThrow(EntityNotFoundException::new);
+			.orElseThrow(() -> new EntityNotFoundException("Dish with the given ID could not be found."));
 	}
 }
