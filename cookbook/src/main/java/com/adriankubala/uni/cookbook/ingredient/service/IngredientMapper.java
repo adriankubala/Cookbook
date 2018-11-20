@@ -17,7 +17,7 @@ final class IngredientMapper {
 			.collect(Collectors.toList());
 	}
 
-	private static IngredientDto toIngredientDto(Ingredient entity) {
+	static IngredientDto toIngredientDto(Ingredient entity) {
 		return new IngredientDto(entity.getId(), entity.getName());
 	}
 }
