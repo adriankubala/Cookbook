@@ -18,6 +18,6 @@ final class IngredientMapper {
 	}
 
 	static IngredientDto toIngredientDto(Ingredient entity) {
-		return new IngredientDto(entity.getId(), entity.getName());
+		return new IngredientDto(entity.getId(), entity.getName().getValue());
 	}
 }

@@ -2,6 +2,7 @@ package com.adriankubala.uni.cookbook.ingredient.presentation;
 
 import com.adriankubala.uni.cookbook.ingredient.model.IngredientDto;
 import com.adriankubala.uni.cookbook.ingredient.model.IngredientNameDto;
+import com.adriankubala.uni.cookbook.ingredient.model.Name;
 import com.adriankubala.uni.cookbook.ingredient.service.IngredientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,6 @@ class IngredientRestController {
 
 	@PostMapping
 	public ResponseEntity<IngredientDto> addIngredient(@RequestBody IngredientNameDto ingredientNameDto) {
-		return new ResponseEntity<>(ingredientService.addIngredient(ingredientNameDto), HttpStatus.CREATED);
+		return new ResponseEntity<>(ingredientService.addIngredient(new Name(ingredientNameDto.getName())), HttpStatus.CREATED);
 	}
 }

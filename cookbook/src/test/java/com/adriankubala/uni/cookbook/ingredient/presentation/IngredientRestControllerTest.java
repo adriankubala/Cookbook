@@ -2,6 +2,7 @@ package com.adriankubala.uni.cookbook.ingredient.presentation;
 
 import com.adriankubala.uni.cookbook.ingredient.model.IngredientNameDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import liquibase.util.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -96,6 +97,14 @@ class IngredientRestControllerTest {
 		mockMvc.perform(post(BASE_URL)
 			.contentType(MediaType.APPLICATION_JSON_UTF8)
 			.content(objectMapper.writeValueAsBytes(new IngredientNameDto(NON_EXISTING_INGREDIENT_NAME + "!"))))
+			.andExpect(status().isUnprocessableEntity());
+	}
+
+	@Test
+	void addIngredientWithTooLongName() throws Exception {
+		mockMvc.perform(post(BASE_URL)
+			.contentType(MediaType.APPLICATION_JSON_UTF8)
+			.content(objectMapper.writeValueAsBytes(new IngredientNameDto(StringUtils.repeat("a", 255)))))
 			.andExpect(status().isUnprocessableEntity());
 	}
 }

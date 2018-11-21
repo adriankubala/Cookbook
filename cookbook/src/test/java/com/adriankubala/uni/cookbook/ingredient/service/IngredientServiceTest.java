@@ -3,7 +3,8 @@ package com.adriankubala.uni.cookbook.ingredient.service;
 import com.adriankubala.uni.cookbook.exception.EntityAlreadyExistsException;
 import com.adriankubala.uni.cookbook.exception.EntityValidationException;
 import com.adriankubala.uni.cookbook.ingredient.model.IngredientDto;
-import com.adriankubala.uni.cookbook.ingredient.model.IngredientNameDto;
+import com.adriankubala.uni.cookbook.ingredient.model.Name;
+import liquibase.util.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ class IngredientServiceTest {
 
 	@Test
 	void addIngredient() {
-		IngredientDto dto = ingredientService.addIngredient(new IngredientNameDto(NON_EXISTING_INGREDIENT_NAME));
+		IngredientDto dto = ingredientService.addIngredient(new Name(NON_EXISTING_INGREDIENT_NAME));
 
 		assertNotNull(dto);
 		assertEquals(NON_EXISTING_INGREDIENT_NAME, dto.getName());
@@ -42,7 +43,7 @@ class IngredientServiceTest {
 
 	@Test
 	void addIngredientWithWhitespaces() {
-		IngredientDto dto = ingredientService.addIngredient(new IngredientNameDto(INGREDIENT_NAME_WITH_WHITESPACES));
+		IngredientDto dto = ingredientService.addIngredient(new Name(INGREDIENT_NAME_WITH_WHITESPACES));
 
 		assertNotNull(dto);
 		assertEquals(NON_EXISTING_INGREDIENT_NAME, dto.getName());
@@ -50,21 +51,26 @@ class IngredientServiceTest {
 
 	@Test
 	void addIngredientWithNullName() {
-		assertThrows(EntityValidationException.class, () -> ingredientService.addIngredient(new IngredientNameDto()));
+		assertThrows(EntityValidationException.class, () -> ingredientService.addIngredient(new Name(null)));
 	}
 
 	@Test
 	void addIngredientWithExistingName() {
-		assertThrows(EntityAlreadyExistsException.class, () -> ingredientService.addIngredient(new IngredientNameDto(EXISTING_INGREDIENT_NAME)));
+		assertThrows(EntityAlreadyExistsException.class, () -> ingredientService.addIngredient(new Name(EXISTING_INGREDIENT_NAME)));
 	}
 
 	@Test
 	void addIngredientWithBlankName() {
-		assertThrows(EntityValidationException.class, () -> ingredientService.addIngredient(new IngredientNameDto(" ")));
+		assertThrows(EntityValidationException.class, () -> ingredientService.addIngredient(new Name(" ")));
 	}
 
 	@Test
 	void addIngredientWithNonAlphabeticChars() {
-		assertThrows(EntityValidationException.class, () -> ingredientService.addIngredient(new IngredientNameDto(INGREDIENT_NAME_WITH_NON_ALPHABETIC_CHAR)));
+		assertThrows(EntityValidationException.class, () -> ingredientService.addIngredient(new Name(INGREDIENT_NAME_WITH_NON_ALPHABETIC_CHAR)));
+	}
+
+	@Test
+	void addIngredientWithTooLongName() {
+		assertThrows(EntityValidationException.class, () -> ingredientService.addIngredient(new Name(StringUtils.repeat("a", 255))));
 	}
 }

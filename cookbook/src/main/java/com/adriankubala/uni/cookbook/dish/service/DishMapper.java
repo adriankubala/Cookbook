@@ -24,7 +24,7 @@ final class DishMapper {
 
 	private static List<IngredientDto> mapIngredientsToDtos(Dish entity) {
 		return entity.getIngredients().stream()
-			.map(ingredient -> new IngredientDto(ingredient.getId(), ingredient.getName()))
+			.map(ingredient -> new IngredientDto(ingredient.getId(), ingredient.getName().getValue()))
 			.collect(Collectors.toList());
 	}
 }
