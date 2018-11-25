@@ -52,30 +52,37 @@ class DishServiceTest {
 
 	@Test
 	void addDish() {
-		List<Long> ingredientIds = Arrays.asList(1L, 51L);
-
-		DishDto dto = dishService.addDish(new AddDishDto(DISH_NAME, DISH_JPEG_PICTURE, DISH_RECIPE, ingredientIds));
+		DishDto dto = dishService.addDish(getAddDishDto());
 
 		assertNotNull(dto);
 		assertEquals(DISH_NAME, dto.getName());
 		assertEquals(DISH_JPEG_PICTURE, dto.getPicture());
 		assertEquals(DISH_RECIPE, dto.getRecipe());
-		assertEquals(ingredientIds, getIngredientIds(dto));
+		assertEquals(DISH_INGREDIENT_IDS, getIngredientIds(dto));
 	}
 
 	@Test
 	void addDishWithNullIngredientIds() {
-		assertThrows(EntityValidationException.class, () -> dishService.addDish(new AddDishDto(DISH_NAME, DISH_JPEG_PICTURE, DISH_RECIPE, null)));
+		AddDishDto dto = getAddDishDto();
+		dto.setIngredientIds(null);
+
+		assertThrows(EntityValidationException.class, () -> dishService.addDish(dto));
 	}
 
 	@Test
 	void addDishWithEmptyIngredientIds() {
-		assertThrows(EntityValidationException.class, () -> dishService.addDish(new AddDishDto(DISH_NAME, DISH_JPEG_PICTURE, DISH_RECIPE, Collections.emptyList())));
+		AddDishDto dto = getAddDishDto();
+		dto.setIngredientIds(Collections.emptyList());
+
+		assertThrows(EntityValidationException.class, () -> dishService.addDish(dto));
 	}
 
 	@Test
 	void addDishWithNonExistingIngredientId() {
-		assertThrows(EntityNotFoundException.class, () -> dishService.addDish(new AddDishDto(DISH_NAME, DISH_JPEG_PICTURE, DISH_RECIPE, Arrays.asList(1L, 345L))));
+		AddDishDto dto = getAddDishDto();
+		dto.setIngredientIds(Arrays.asList(1L, 345L));
+
+		assertThrows(EntityNotFoundException.class, () -> dishService.addDish(dto));
 	}
 
 	private List<Long> getIngredientIds(DishDto dishDto) {
