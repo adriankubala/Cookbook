@@ -7,7 +7,19 @@
 - POST /ingredients - e.g.:
 ```
 {
-    "name":"butter"
+    "name": "butter"
+}
+```
+- POST /dishes - e.g.:
+```
+{
+    "name": "Chocolate cake - yummy",
+    "picture": "data:image/jpeg;base64,/9j/4AAQSkZJ",
+    "recipe": "Mix together the cake mix, 1 cup amaretto flavored creamer, 1 cup amaretto liqueur, eggs and oil until blended. Distribute cake batter evenly between the cake pans. Bake in the preheated oven for 15 minutes, making certain the cake layers do not overbake. Allow to cool completely before filling.",
+    "ingredientIds": [
+        1,
+        51
+    ]
 }
 ```
 
