@@ -2,6 +2,10 @@
 
 ## Endpoints
 - GET /dishes
+- GET /dishes?term={term} - e.g.:
+```
+/dishes?term=%20%20CraM%20%20%20brEA%20
+```
 - GET /dishes/{dishId}
 - GET /ingredients
 - POST /ingredients - e.g.:

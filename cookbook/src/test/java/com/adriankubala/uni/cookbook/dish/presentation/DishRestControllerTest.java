@@ -17,6 +17,7 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.Collections;
 
 import static com.adriankubala.uni.cookbook.dish.DishFixtures.*;
+import static com.adriankubala.uni.cookbook.dish.presentation.DishRestController.DISHES_TERM_PARAM_NAME;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -47,6 +48,14 @@ class DishRestControllerTest {
 		mockMvc.perform(get(BASE_URL))
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$", hasSize(EXISTING_DISHES_SIZE)));
+	}
+
+	@Test
+	void getDishesByTerm() throws Exception {
+		mockMvc.perform(get(BASE_URL)
+			.param(DISHES_TERM_PARAM_NAME, DISH_TERM_PARAM_VALUE))
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$", hasSize(DISH_BY_TERM_SIZE)));
 	}
 
 	@Test

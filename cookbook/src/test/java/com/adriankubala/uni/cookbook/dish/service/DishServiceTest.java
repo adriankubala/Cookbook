@@ -37,6 +37,14 @@ class DishServiceTest {
 	}
 
 	@Test
+	void getDishesByTerm() {
+		List<DishDto> dtos = dishService.getDishesByTerm(DISH_TERM_PARAM_VALUE);
+
+		assertNotNull(dtos);
+		assertEquals(DISH_BY_TERM_SIZE, dtos.size());
+	}
+
+	@Test
 	void getDish() {
 		DishDto dto = dishService.getDish(EXISTING_DISH_ID);
 

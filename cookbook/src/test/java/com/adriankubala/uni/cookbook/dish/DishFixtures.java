@@ -11,6 +11,8 @@ public final class DishFixtures {
 	public static final Long EXISTING_DISH_ID = 1L;
 	public static final Long NON_EXISTING_DISH_ID = 999L;
 	public static final int EXISTING_DISH_INGREDIENTS_SIZE = 4;
+	public static final String DISH_TERM_PARAM_VALUE = "  CraM   brEA ";
+	public static final int DISH_BY_TERM_SIZE = 2;
 
 	public static final String DISH_NAME = "Chocolate cake - yummy";
 	public static final String DISH_RECIPE = "Mix together the cake mix, 1 cup amaretto flavored creamer, 1 cup amaretto liqueur, eggs and oil until blended. Distribute cake batter evenly between the cake pans. Bake in the preheated oven for 15 minutes, making certain the cake layers do not overbake. Allow to cool completely before filling.";

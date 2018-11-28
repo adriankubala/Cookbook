@@ -13,6 +13,7 @@ import java.util.List;
 @RequestMapping("dishes")
 class DishRestController {
 
+	static final String DISHES_TERM_PARAM_NAME = "term";
 	private static final String DISH_ID_PATH_VAR = "dishId";
 
 	private final DishService dishService;
@@ -24,6 +25,11 @@ class DishRestController {
 	@GetMapping
 	public List<DishDto> getAllDishes() {
 		return dishService.getAllDishes();
+	}
+
+	@GetMapping(params = DISHES_TERM_PARAM_NAME)
+	public List<DishDto> searchDishes(@RequestParam(DISHES_TERM_PARAM_NAME) String term) {
+		return dishService.getDishesByTerm(term);
 	}
 
 	@GetMapping("{" + DISH_ID_PATH_VAR + "}")

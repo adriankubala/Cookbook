@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "dishes")
@@ -149,6 +150,12 @@ public class Dish {
 		if (recipe.trim().isEmpty()) {
 			throw new EntityValidationException("Dish recipe may not be blank.");
 		}
+	}
+
+	public List<String> getIngredientNames() {
+		return getIngredients().stream()
+			.map(ingredient -> ingredient.getName().getValue())
+			.collect(Collectors.toList());
 	}
 
 	public List<Ingredient> getIngredients() {
