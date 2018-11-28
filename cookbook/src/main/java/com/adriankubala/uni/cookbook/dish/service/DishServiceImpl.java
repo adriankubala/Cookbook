@@ -10,7 +10,9 @@ import com.adriankubala.uni.cookbook.ingredient.repository.IngredientRepositoryF
 import com.adriankubala.uni.cookbook.ingredient.repository.entity.Ingredient;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 class DishServiceImpl implements DishService {
@@ -25,7 +27,46 @@ class DishServiceImpl implements DishService {
 
 	@Override
 	public List<DishDto> getAllDishes() {
-		return DishMapper.toDishDtos(dishRepository.findAll());
+		return DishMapper.toDishDtos(findAllEntities());
+	}
+
+	private List<Dish> findAllEntities() {
+		return dishRepository.findAll();
+	}
+
+	@Override
+	public List<DishDto> getDishesByTerm(String term) {
+		return DishMapper.toDishDtos(findEntitiesBy(term));
+	}
+
+	private List<Dish> findEntitiesBy(String term) {
+		return findAllEntities().stream()
+			.filter(entity -> isEntityFoundInTerm(entity, term))
+			.collect(Collectors.toList());
+	}
+
+	private boolean isEntityFoundInTerm(Dish entity, String term) {
+		return getRelevantEntityNames(entity).stream()
+			.anyMatch(name -> isAnyNameFoundInTerm(name, term));
+	}
+
+	private List<String> getRelevantEntityNames(Dish entity) {
+		List<String> names = entity.getIngredientNames();
+		names.add(entity.getName());
+		return names;
+	}
+
+	private boolean isAnyNameFoundInTerm(String name, String term) {
+		return splitTerm(term).stream()
+			.anyMatch(termPart -> doesNameContainsTermPartIgnoreCase(name, termPart));
+	}
+
+	private List<String> splitTerm(String term) {
+		return Arrays.asList(term.trim().split("\\s+"));
+	}
+
+	private boolean doesNameContainsTermPartIgnoreCase(String name, String termPart) {
+		return name.toUpperCase().contains(termPart.toUpperCase());
 	}
 
 	@Override
