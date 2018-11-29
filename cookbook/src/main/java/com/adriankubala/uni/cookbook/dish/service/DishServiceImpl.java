@@ -9,13 +9,17 @@ import com.adriankubala.uni.cookbook.exception.EntityValidationException;
 import com.adriankubala.uni.cookbook.ingredient.repository.IngredientRepositoryFacade;
 import com.adriankubala.uni.cookbook.ingredient.repository.entity.Ingredient;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 class DishServiceImpl implements DishService {
+
+	private static final String ENTITY_NOT_FOUND_EXCEPTION_MSG = "Dish with the given ID could not be found.";
 
 	private final DishRepository dishRepository;
 	private final IngredientRepositoryFacade ingredientRepositoryFacade;
@@ -73,7 +77,7 @@ class DishServiceImpl implements DishService {
 	public DishDto getDish(Long dishId) {
 		return dishRepository.findById(dishId)
 			.map(DishMapper::toDishDto)
-			.orElseThrow(() -> new EntityNotFoundException("Dish with the given ID could not be found."));
+			.orElseThrow(() -> new EntityNotFoundException(ENTITY_NOT_FOUND_EXCEPTION_MSG));
 	}
 
 	@Override
@@ -110,5 +114,17 @@ class DishServiceImpl implements DishService {
 
 	private Dish saveEntity(Dish entity) {
 		return dishRepository.save(entity);
+	}
+
+	@Override
+	public void deleteDish(Long dishId) {
+		checkIfEntityExistsBy(dishId);
+		dishRepository.deleteById(dishId);
+	}
+
+	private void checkIfEntityExistsBy(Long dishId) {
+		if (!dishRepository.existsById(dishId)) {
+			throw new EntityNotFoundException(ENTITY_NOT_FOUND_EXCEPTION_MSG);
+		}
 	}
 }

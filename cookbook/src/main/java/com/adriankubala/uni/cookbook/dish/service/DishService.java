@@ -14,4 +14,6 @@ public interface DishService {
 	DishDto getDish(Long dishId);
 
 	DishDto addDish(AddDishDto addDishDto);
+
+	void deleteDish(Long dishId);
 }

@@ -2,6 +2,7 @@ package com.adriankubala.uni.cookbook.dish.service;
 
 import com.adriankubala.uni.cookbook.dish.model.AddDishDto;
 import com.adriankubala.uni.cookbook.dish.model.DishDto;
+import com.adriankubala.uni.cookbook.dish.repository.DishRepository;
 import com.adriankubala.uni.cookbook.exception.EntityNotFoundException;
 import com.adriankubala.uni.cookbook.exception.EntityValidationException;
 import com.adriankubala.uni.cookbook.ingredient.model.IngredientDto;
@@ -27,6 +28,9 @@ class DishServiceTest {
 
 	@Autowired
 	private DishService dishService;
+
+	@Autowired
+	private DishRepository dishRepository;
 
 	@Test
 	void getAllDishes() {
@@ -91,6 +95,18 @@ class DishServiceTest {
 		dto.setIngredientIds(Arrays.asList(1L, 345L));
 
 		assertThrows(EntityNotFoundException.class, () -> dishService.addDish(dto));
+	}
+
+	@Test
+	void deleteDish() {
+		dishService.deleteDish(EXISTING_DISH_ID);
+
+		assertFalse(dishRepository.existsById(EXISTING_DISH_ID));
+	}
+
+	@Test
+	void deleteNonExistingDish() {
+		assertThrows(EntityNotFoundException.class, () -> dishService.deleteDish(NON_EXISTING_DISH_ID));
 	}
 
 	private List<Long> getIngredientIds(DishDto dishDto) {

@@ -19,8 +19,7 @@ import java.util.Collections;
 import static com.adriankubala.uni.cookbook.dish.DishFixtures.*;
 import static com.adriankubala.uni.cookbook.dish.presentation.DishRestController.DISHES_TERM_PARAM_NAME;
 import static org.hamcrest.Matchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -97,5 +96,17 @@ class DishRestControllerTest {
 			.contentType(MediaType.APPLICATION_JSON_UTF8)
 			.content(objectMapper.writeValueAsBytes(dto)))
 			.andExpect(status().isUnprocessableEntity());
+	}
+
+	@Test
+	void deleteDish() throws Exception {
+		mockMvc.perform(delete(BASE_URL + EXISTING_DISH_ID))
+			.andExpect(status().isNoContent());
+	}
+
+	@Test
+	void deleteNonExistingDish() throws Exception {
+		mockMvc.perform(delete(BASE_URL + NON_EXISTING_DISH_ID))
+			.andExpect(status().isNotFound());
 	}
 }
