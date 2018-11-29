@@ -26,6 +26,7 @@
     ]
 }
 ```
+- DELETE /dishes/{dishId}
 
 ## Deployment to Heroku
 1. Clone repository.
