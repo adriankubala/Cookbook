@@ -54,7 +54,7 @@ public class Ingredient {
 
 	private void checkIfNameDoesNotContainIllegalChars(Name name) {
 		if (nameContainsIllegalChars(name)) {
-			throw new EntityValidationException("Ingredient may not contain illegal characters.");
+			throw new EntityValidationException("Ingredient may contain letters only.");
 		}
 	}
 
