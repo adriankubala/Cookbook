@@ -60,6 +60,11 @@ class IngredientServiceTest {
 	}
 
 	@Test
+	void addIngredientWithExistingNameAndWhitespaces() {
+		assertThrows(EntityAlreadyExistsException.class, () -> ingredientService.addIngredient(new Name(" " + EXISTING_INGREDIENT_NAME)));
+	}
+
+	@Test
 	void addIngredientWithBlankName() {
 		assertThrows(EntityValidationException.class, () -> ingredientService.addIngredient(new Name(" ")));
 	}
