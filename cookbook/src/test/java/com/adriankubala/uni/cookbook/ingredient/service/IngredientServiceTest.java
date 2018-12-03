@@ -60,8 +60,13 @@ class IngredientServiceTest {
 	}
 
 	@Test
-	void addIngredientWithExistingNameAndWhitespaces() {
-		assertThrows(EntityAlreadyExistsException.class, () -> ingredientService.addIngredient(new Name(" " + EXISTING_INGREDIENT_NAME)));
+	void addIngredientWithExistingNameCaseInsensitive() {
+		assertThrows(EntityAlreadyExistsException.class, () -> ingredientService.addIngredient(new Name(EXISTING_INGREDIENT_NAME.toLowerCase())));
+	}
+
+	@Test
+	void addIngredientWithExistingNameCaseInsensitiveAndWhitespaces() {
+		assertThrows(EntityAlreadyExistsException.class, () -> ingredientService.addIngredient(new Name(" " + EXISTING_INGREDIENT_NAME.toLowerCase())));
 	}
 
 	@Test

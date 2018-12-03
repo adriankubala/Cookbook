@@ -34,7 +34,7 @@ class IngredientServiceImpl implements IngredientService {
 	}
 
 	private void checkIfIngredientDoesNotExistByName(Name name) {
-		if (ingredientRepository.existsByName(name.getValue().trim())) {
+		if (ingredientRepository.existsByNameIgnoreCase(name.getValue().trim())) {
 			throw new EntityAlreadyExistsException("Ingredient with this name already exists.");
 		}
 	}
