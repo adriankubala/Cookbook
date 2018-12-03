@@ -75,8 +75,13 @@ class IngredientServiceTest {
 	}
 
 	@Test
-	void addIngredientWithNonAlphabeticChars() {
+	void addIngredientWithNonAlphabeticChar() {
 		assertThrows(EntityValidationException.class, () -> ingredientService.addIngredient(new Name(INGREDIENT_NAME_WITH_NON_ALPHABETIC_CHAR)));
+	}
+
+	@Test
+	void addIngredientWithDigit() {
+		assertThrows(EntityValidationException.class, () -> ingredientService.addIngredient(new Name(INGREDIENT_NAME_WITH_DIGIT)));
 	}
 
 	@Test

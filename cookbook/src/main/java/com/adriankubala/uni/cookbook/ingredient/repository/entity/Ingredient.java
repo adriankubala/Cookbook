@@ -63,7 +63,7 @@ public class Ingredient {
 	}
 
 	private boolean isCharIllegal(int charCode) {
-		return !(Character.isDigit(charCode) || Character.isLetter(charCode) || Character.isWhitespace(charCode));
+		return !(Character.isLetter(charCode) || Character.isWhitespace(charCode));
 	}
 
 	private String trim(Name name) {
